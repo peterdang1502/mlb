@@ -93,8 +93,14 @@ def get_stats(type, away, home, score, inverse = False):
     for i in range(8):
         home_td = home_td.next_sibling
     
-    away_score = away_td.string
-    home_score = home_td.string
+    away_score = float(away_td.string)
+    home_score = float(home_td.string)
+    if away_score == home_score:
+        return score
+
+    difference = (max(away_score, home_score) - min(away_score, home_score)) / max(away_score, home_score)
+    
+    # score += (difference if home_score > away_score else -difference) if not inverse else (-difference if home_score > away_score else difference)
     score += (1 if home_score > away_score else -1) if not inverse else (-1 if home_score > away_score else 1)
     return score
 
@@ -105,7 +111,7 @@ grid = soup.find("div", {"id": "gridWrapper"})
 div = None
 for i in range(1, len(list(grid.children))):
     prev = list(grid.children)[i - 1]
-    if prev['data-mlb-test'] == 'gameCardTitles' and list(prev.children)[1].string == datetime.today().strftime('%b %d'):
+    if prev['data-mlb-test'] == 'gameCardTitles' and datetime.strptime(list(prev.children)[1].string, '%b %d').strftime('%b %d') == datetime.today().strftime('%b %d'):
         div = list(grid.children)[i]
         break
 
