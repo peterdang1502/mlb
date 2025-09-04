@@ -147,7 +147,7 @@ def check_pitcher(name, era):
 
     return result[0][0]
         
-date = datetime.datetime(2025, 8, 31)
+date = datetime.datetime(2025, 9, 2)
 
 link = "https://www.mlb.com/scores/" + date.strftime("%Y-%m-%d")
 

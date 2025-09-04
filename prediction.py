@@ -16,7 +16,7 @@ def new_score(away_team, home_team, away_era, home_era):
     result = cursor.fetchall()
     new_res = []
     for row in result:
-        new_res.append([row[0], row[1], row[2], row[3] - (row[8] - home_era), row[4] - (row[6] - away_era)])
+        new_res.append([row[0], row[1], row[2], round(row[3] - (row[8] - home_era), 2), round(row[4] - (row[6] - away_era), 2)])
 
     return new_res
 
